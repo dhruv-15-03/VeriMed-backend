@@ -39,7 +39,6 @@ public class AuthController {
         }
         newUser.setAge(user.getAge());
         newUser.setName(user.getName());
-        newUser.setEmail(user.getEmail());
         newUser.setGender(user.getGender());
         newUser.setPassword(passwordEncoder.encode(user.getPassword()));
         Authentication authentication=new UsernamePasswordAuthenticationToken(newUser.getEmail(),newUser.getPassword());

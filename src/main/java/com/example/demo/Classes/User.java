@@ -31,7 +31,6 @@ public class User {
     public User( String name, String email, String password, Boolean isDocter,Integer Age, String gender) {
         this.email=email;
         this.password=password;
-        this.isDocter=isDocter;
         this.name=name;
         this.Age=Age;
         this.gender=gender;
