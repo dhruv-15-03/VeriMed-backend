@@ -1,12 +1,7 @@
 package com.example.demo.Classes;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jdk.jfr.Enabled;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +10,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-@Enabled
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -31,7 +26,8 @@ public class User {
     private Integer Age;
     private String gender;
     private String specialization;
-    private String[] summary;
+    @ElementCollection
+    private List<String> summary;
     public User( String name, String email, String password, Boolean isDocter,Integer Age, String gender) {
         this.email=email;
         this.password=password;

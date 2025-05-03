@@ -12,6 +12,6 @@ import java.util.List;
 @Repository
 
 public interface ChatsAll extends JpaRepository<Chats,Integer> {
-    @Query("SELECT u from Chat u join u.chats d where d.userName=:query OR u.admin.userName = :query")
+    @Query("SELECT u from Chats u join u.chats d where d.email=:query OR u.admin.email = :query")
     public List<Chats> findChatByUser(@Param("query") String query);
 }

@@ -1,4 +1,4 @@
-package com.example.demo.Controllers;
+package com.example.demo.Controller;
 
 import com.example.demo.Classes.Chats;
 import com.example.demo.Classes.User;
