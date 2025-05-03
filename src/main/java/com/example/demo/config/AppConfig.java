@@ -39,8 +39,8 @@ public class AppConfig {
                 "http://localhost:8081",
                 "http://localhost:3000",
                 "https://dhr-social.vercel.app",
+                "http://localhost:5173",
                 "*"
-
         ));
 
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));

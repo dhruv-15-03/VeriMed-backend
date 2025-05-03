@@ -28,7 +28,7 @@ public class User {
     private String specialization;
     @ElementCollection
     private List<String> summary;
-    public User( String name, String email, String password, Boolean isDocter,Integer Age, String gender) {
+    public User( String name, String email, String password,Integer Age, String gender) {
         this.email=email;
         this.password=password;
         this.name=name;
