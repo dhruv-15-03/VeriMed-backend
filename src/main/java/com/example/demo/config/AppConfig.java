@@ -25,7 +25,7 @@ public class AppConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.sessionManagement(management-> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        http.authorizeHttpRequests(Authorize -> Authorize.requestMatchers("/api/**").authenticated().anyRequest().permitAll())
+        http.authorizeHttpRequests(Authorize -> Authorize.requestMatchers("/auth/**").authenticated().anyRequest().permitAll())
                 .addFilterBefore(new jwtValidator(), BasicAuthenticationFilter.class)
                 .csrf().disable()
                 .cors(cors-> cors.configurationSource(corsConfigurationSource()));
