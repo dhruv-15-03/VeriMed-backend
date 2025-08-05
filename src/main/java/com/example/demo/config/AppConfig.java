@@ -24,24 +24,43 @@ import java.util.Collections;
 public class AppConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        http.sessionManagement(management-> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        http.authorizeHttpRequests(Authorize -> Authorize.requestMatchers("/api/**").authenticated().anyRequest().permitAll())
+        http.sessionManagement(management-> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(Authorize -> Authorize
+                        .requestMatchers("/api/**").authenticated()
+                        .anyRequest().permitAll())
                 .addFilterBefore(new jwtValidator(), BasicAuthenticationFilter.class)
-                .csrf().disable()
-                .cors(cors-> cors.configurationSource(corsConfigurationSource()));
+                .csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()));
         return http.build();
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(
-                "http://localhost:5173"
+        
+        // Use allowedOriginPatterns to support credentials with flexible origins
+        configuration.setAllowedOriginPatterns(Arrays.asList(
+                "http://localhost:*",
+                "http://127.0.0.1:*",
+                "https://localhost:*",
+                "https://127.0.0.1:*"
         ));
 
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
-        configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH"));
+        
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        
+        // Expose necessary headers for frontend
+        configuration.setExposedHeaders(Arrays.asList(
+                "Authorization", 
+                "Content-Type", 
+                "X-Requested-With",
+                "Accept",
+                "Origin",
+                "Access-Control-Request-Method",
+                "Access-Control-Request-Headers"
+        ));
+        
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
 
