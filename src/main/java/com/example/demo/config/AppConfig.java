@@ -16,10 +16,16 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
+<<<<<<< HEAD
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.List;
+=======
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Arrays;
+>>>>>>> 39e49ea7434b000203a410179f8936790fec0a59
 
 @Configuration
 //@EnableWebSecurity
@@ -44,13 +50,20 @@ public class AppConfig implements WebMvcConfigurer {
     }
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        http.sessionManagement(management-> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(Authorize -> Authorize
-                        .requestMatchers("/api/**").authenticated()
-                        .anyRequest().permitAll())
-                .addFilterBefore(new jwtValidator(), BasicAuthenticationFilter.class)
+        http.sessionManagement(management-> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+<<<<<<< HEAD
+        http.authorizeHttpRequests(Authorize -> Authorize
+                .requestMatchers("/api/signup", "/api/login", "/auth/**").permitAll()
+                .requestMatchers("/api/**").authenticated()
+                .anyRequest().permitAll())
+                .addFilterBefore(new com.example.demo.config.jwtValidator(), BasicAuthenticationFilter.class)
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()));
+=======
+        http.authorizeHttpRequests(Authorize -> Authorize.requestMatchers("/api/**").authenticated().anyRequest().permitAll())
+                .addFilterBefore(new jwtValidator(), BasicAuthenticationFilter.class)
+                .csrf().disable()
+>>>>>>> 39e49ea7434b000203a410179f8936790fec0a59
+                .cors(cors-> cors.configurationSource(corsConfigurationSource()));
         return http.build();
     }
 
@@ -58,27 +71,26 @@ public class AppConfig implements WebMvcConfigurer {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList(
+<<<<<<< HEAD
                 "http://localhost:8081",
+                "http://localhost:5000",
                 "http://localhost:3000",
-                "https://veri-med.vercel.app/",
-                "https://ai-court-room.vercel.app/"
+                "http://localhost:5173",
+                "https://veri-med.vercel.app"
         ));
 
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH"));
-        
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
-        
-        // Expose necessary headers for frontend
-        configuration.setExposedHeaders(Arrays.asList(
-                "Authorization", 
-                "Content-Type", 
-                "X-Requested-With",
-                "Accept",
-                "Origin",
-                "Access-Control-Request-Method",
-                "Access-Control-Request-Headers"
+=======
+                "http://localhost:5173",
+                "http://localhost:3000",
+                "https://dhr-social.vercel.app"
         ));
-        
+
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+>>>>>>> 39e49ea7434b000203a410179f8936790fec0a59
+        configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
 
