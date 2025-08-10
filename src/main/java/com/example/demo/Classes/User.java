@@ -1,6 +1,6 @@
 package com.example.demo.Classes;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +28,11 @@ public class User {
     private String specialization;
     @ElementCollection
     private List<String> summary;
+    
+    @OneToMany(mappedBy = "admin")
+    @JsonIgnore
+    private List<Chats> adminChats = new ArrayList<>();
+    
     public User( String name, String email, String password,Integer Age, String gender) {
         this.email=email;
         this.password=password;
@@ -36,7 +41,7 @@ public class User {
         this.gender=gender;
     }
     @ManyToMany(mappedBy = "chats")
-    @JsonManagedReference
+    @JsonIgnore
     private List<Chats> chat=new ArrayList<>();
 
 }

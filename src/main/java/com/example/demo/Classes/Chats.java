@@ -1,6 +1,6 @@
 package com.example.demo.Classes;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,10 +17,10 @@ public class Chats {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer chatId;
     @ManyToOne
-    @JsonBackReference
+    @JsonIgnore
     private User admin;
     @ManyToMany()
-    @JsonBackReference
+    @JsonIgnore
     private List<User> chats=new ArrayList<>();
     private LocalDateTime time;
     @OneToMany
