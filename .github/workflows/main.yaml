@@ -18,11 +18,12 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+          cache: 'maven'
 
-      - name: Build JAR with Maven
+      - name: Build JAR with Maven (skip tests)
         run: |
           chmod +x mvnw
-          ./mvnw clean package
+          ./mvnw -B -DskipTests -ntp clean package
 
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
