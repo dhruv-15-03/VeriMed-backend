@@ -46,7 +46,6 @@ public class ReportController {
         return ResponseEntity.ok(summary);
     }
 
-    // Delete (logical) a report by index and keep a log entry
     @DeleteMapping("/{index}")
     public ResponseEntity<List<String>> deleteReport(@RequestHeader(name = "Authorization", required = false) String authHeader,
                                                      @PathVariable int index) throws Exception {
@@ -64,7 +63,6 @@ public class ReportController {
             return ResponseEntity.badRequest().build();
         }
         String removed = summary.get(index);
-        // keep original but prepend a delete log entry
         String log = DateTimeFormatter.ISO_INSTANT.format(Instant.now()) + "|DELETE|" + removed;
         summary.add(0, log);
         user.setSummary(summary);
@@ -72,7 +70,6 @@ public class ReportController {
         return ResponseEntity.ok(summary);
     }
 
-    // List history as-is (newest first)
     @GetMapping
     public ResponseEntity<List<String>> listReports(@RequestHeader(name = "Authorization", required = false) String authHeader) throws Exception {
         if (authHeader == null || authHeader.isBlank()) {
@@ -85,7 +82,6 @@ public class ReportController {
         }
         List<String> summary = user.getSummary();
         if (summary == null) summary = new ArrayList<>();
-        // ensure newest first by parsing ISO timestamp prefix before first '|'
         summary.sort(Comparator.comparing((String s) -> s.split("\\|", 2)[0]).reversed());
         return ResponseEntity.ok(summary);
     }
