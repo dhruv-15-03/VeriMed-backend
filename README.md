@@ -104,7 +104,8 @@ This backend is designed to work with external AI models for advanced healthcare
 
 You can connect backend chat/message data to the AI model for analysis, recommendations, or automation.
 
-## Contributing
+## Contributing 
+**Frontend By** [Kushagra](https://github.com/kushagra2304/veri-med)
 
 Pull requests and suggestions are welcome!  
 Please see [issues](https://github.com/dhruv-15-03/VeriMed-backend/issues) for bugs and feature requests.
@@ -114,7 +115,7 @@ Please see [issues](https://github.com/dhruv-15-03/VeriMed-backend/issues) for b
 _The current repository does not specify a license. Please clarify usage rights with the owner._
 
 ## Links
-
+- **Frontend:** [VeriMed-Frontend](https://github.com/kushagra2304/veri-med)
 - **Backend:** [VeriMed-backend](https://github.com/dhruv-15-03/VeriMed-backend)
 - **AI Model:** [VeriMed-AI](https://github.com/dhruv-15-03/VeriMed-AI-)
 
